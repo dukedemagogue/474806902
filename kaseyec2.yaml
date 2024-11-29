@@ -7,7 +7,7 @@ Resources:
     Properties:
       InstanceType: t2.micro
       ImageId: ami-0889a44b331db0194  
-      KeyName: RosscosCoffeeKeyPair
+      KeyName: vockey
       SecurityGroupIds:
         - sg-065f97d59acbbda58 
         - sg-0f932f0fa41e8c165
