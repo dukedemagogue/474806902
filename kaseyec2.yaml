@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 Instance with Apache Webserver
+
+Resources:
+  kaseyEC2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0889a44b331db0194  
+      KeyName: RosscosCoffeeKeyPair
+      SecurityGroupIds:
+        - sg-065f97d59acbbda58 
+        - sg-0f932f0fa41e8c165
+      SubnetId: subnet-0e91ad26463025bcd
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd
+          systemctl enable httpd
+          echo "<h1>kaseys webserver</h1>" > /var/www/html/index.html
+
+Outputs:
+  InstanceId:
+    Description: EC2 Instance ID
+    Value: !Ref kaseyEC2
+  PublicIp:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt kaseyEC2.PublicIp
